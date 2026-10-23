@@ -1,0 +1,15 @@
+# Kurulumun bilgisayarda oluşturduğu dosyalar: dünya, indirilenler, yedekler ve kişisel ayarlar
+/sunucu/
+/java/
+/playit/
+/yedekler/
+/.gecici-java/
+/AYARLAR.cmd
+/SURUM.txt
+/DUYURULAR.txt
+/araclar/durum.json
+/araclar/gorevler.log
+*.indiriliyor
+
+# Paketlenmiş ZIP (Releases'a yüklenir)
+MinecraftSunucu.zip

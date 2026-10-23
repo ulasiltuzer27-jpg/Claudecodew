@@ -1,0 +1,414 @@
+﻿MINECRAFT SUNUCUSU - KULLANIM KILAVUZU
+=======================================
+
+Paper sunucusu (Java Edition), TLauncher desteği, otomatik kurulan koyu temalı
+spawn meydanı, ek dünyalar ve 27 eklenti:
+
+  Temel
+    AuthMe            Şifreyle giriş (/register, /login). TLauncher açıkken isimleri korur.
+    EssentialsX       /home, /tpa, /spawn, /tpr, /warp, /msg, para, başlangıç kiti, renkli sohbet
+    LuckPerms         Yetkiler ve rütbeler ([Yönetici], [Oyuncu])
+    TAB               Renkli oyuncu listesi, isimlerin üstünde rütbe
+    ViaVersion        Daha yeni Minecraft sürümleriyle girebilme
+    ViaBackwards      Daha eski Minecraft sürümleriyle girebilme
+  Koruma
+    GriefPrevention   Arsa koruma (altın kürek)
+    CoreProtect       Kim hangi bloğu kırdı/koydu kaydı ve geri alma
+    GrimAC            Hile koruması
+    (Paper)           X-ray koruması
+  Oyun keyfi
+    GravesX           Ölünce eşyaların bir mezarda kalır
+    AuraSkills        RPG yetenekleri: kazdıkça, savaştıkça seviye atlarsın (/skills)
+    VeinMiner         Ağacı veya maden damarını tek seferde kırma
+    GSit              Oturma ve uzanma (/sit, /lay, merdivenlere sağ tıkla)
+    SkinsRestorer     TLauncher oyuncularının skinleri herkese görünür (/skin)
+    QuickShop-Hikari  Sandık marketleri
+    VaultUnlocked     Para sistemini marketlere ve rütbeleri sohbete bağlar
+  Dünyalar ve topluluk
+    Multiverse        Kaynak Dünyası (her ay sıfırlanır) ve Yaratıcı Dünya (creative, ayrı envanter)
+    FancyNpcs         Spawn'da rehber ve dünyalara götüren kapı bekçileri
+    BlueMap           Tarayıcıdan bakılan 3D dünya haritası
+    Plan              Oyuncu istatistikleri sitesi
+    Simple Voice Chat Yakındakilerle sesli sohbet (oyuncular mod kurar)
+    PlaceholderAPI    Skor tablosunda paranı gösterir
+    Chunky            Dünyayı önceden oluşturma (kasmayı azaltır)
+  Yönetici araçları
+    WorldEdit         Büyük yapıları hızlı düzenleme (//wand, //set ...)
+    DecentHolograms   Havada yazılar (/dh)
+    spark             Kasma analizi (Paper'ın içinde gelir)
+  İsteğe bağlı
+    DiscordSRV        Oyun sohbeti <-> Discord kanalı
+
+Ayrıca: günlük/haftalık ödül kitleri, Türkçe skor tablosu, 15 dakikada bir ipucu
+duyuruları, uyku %50, dünya sınırı, otomatik yedek, çökünce yeniden başlatma, gece
+otomatik restart, saatlik yedek ve playit.gg tüneli.
+
+
+DOSYALAR
+--------
+  KUR.bat       Kurulum ve güncelleme. İlk iş bunu çalıştır.
+  TUNEL.bat     playit.gg tünelini açar (arkadaşların internetten bağlanabilsin diye).
+  BASLAT.bat    Önce yedek alır, sonra sunucuyu açar. Çökerse kendini yeniden başlatır.
+  YEDEKLE.bat   Elle yedek almak için (sunucu açıkken de güvenle çalışır).
+  AYARLAR.cmd   Sunucuya ayrılan bellek (kurulumdan sonra oluşur).
+  SURUM.txt     Sunucunun Minecraft sürümü (kurulumdan sonra oluşur).
+  DUYURULAR.txt Sohbete 15 dakikada bir yazılan ipuçları; Not Defteri ile değiştirebilirsin.
+  sunucu\       Dünya, eklentiler ve sunucu ayarları.
+  yedekler\     Yedekler.
+  araclar\      Scriptler. gorevler.log: gece restart, saatlik yedek ve duyuruların kaydı.
+
+
+1) KURULUM (bir kez)
+--------------------
+  1. İndirdiğin ZIP dosyasına sağ tıkla > Özellikler > altta "Engellemeyi kaldır"
+     kutusunu işaretle > Tamam. (Windows'un "bu dosya güvenli olmayabilir"
+     uyarılarını engeller.)
+  2. ZIP'i basit bir klasöre çıkar, örneğin:  C:\MinecraftSunucu
+     Masaüstü veya OneDrive klasörü önerilmez (senkronizasyon dünyayı bozabilir).
+     Eski sürümü kurduysan yeni ZIP'i aynı klasörün üzerine çıkar ("Değiştir" de).
+  3. KUR.bat dosyasına çift tıkla.
+     - Windows "Kişisel bilgisayarınız korundu" derse: "Ek bilgi" > "Yine de çalıştır".
+     - Script önce ne yapacağını gösterir ve onay ister. Onay vermeden hiçbir şey değişmez.
+     - Mojang EULA sözleşmesini kabul etmen istenir (https://aka.ms/MinecraftEULA).
+     - Birkaç soru sorar: sunucu adı, senin Minecraft ismin (yönetici olursun), Discord,
+       dünyanın önceden oluşturulması, gece restart/saatlik yedek, Windows açılınca başlama.
+       Sorulardan sonra kendi kendine ilerler; sunucu iki kez açılıp kapanır ve bu
+       sırada spawn meydanını inşa eder (5-10 dakika sürebilir).
+     - Windows Güvenlik Duvarı Java için izin isterse "Erişime izin ver" de.
+  4. Kurulumun sonunda Minecraft sürümü ve spawn'ın koordinatı yazar.
+
+
+2) TÜNEL - playit.gg (bir kez ayarlanır)
+-----------------------------------------
+Tünel sayesinde modemde port açmadan arkadaşların internetten bağlanır.
+
+  1. TUNEL.bat dosyasını aç.
+  2. Pencerede bir link çıkar (playit.gg/claim/... gibi). Bu linki tarayıcıda aç.
+  3. playit.gg'de ücretsiz hesap aç veya giriş yap ve programı hesabına bağla (claim / onayla).
+  4. Sitede: Tunnels > Add Tunnel > tür olarak "Minecraft Java" seç.
+     Yerel adres (Local Address): 127.0.0.1   Port: 25565  > Add / Create.
+  5. Sana bir adres verilir, örneğin:  ornek-isim.gl.joinmc.link
+     Arkadaşların bu adresle bağlanır. Adres değişmez, bir kez paylaşman yeter.
+
+TUNEL.bat penceresi açık kaldığı sürece tünel çalışır.
+
+
+3) SUNUCUYU AÇMAK / KAPATMAK
+-----------------------------
+  Açmak:    Önce TUNEL.bat, sonra BASLAT.bat.
+  Kapatmak: Sunucu penceresine  stop  yaz ve Enter'a bas. Sonra "yeniden
+            başlatılsın mı" sorusuna 10 saniye içinde H tuşuyla cevap ver.
+  Çökerse:  10 saniye sonra kendiliğinden yeniden açılır.
+
+  Pencereyi X ile kapatma! Önce stop yaz. Yoksa son değişiklikler kaybolabilir.
+  Sunucu yalnızca bilgisayarın açıkken çalışır.
+
+
+4) SPAWN MEYDANI, REHBER VE DÜNYALAR
+----------------
+  Kurulum, dünyanın doğma noktasına 31x31'lik koyu temalı bir meydan inşa eder:
+  kayrak karo zemin, siyahtaş kenarlar, ruh fenerli direkler, banklar, köşelerde
+  çiçekli bahçeler ve koyu meşe ağaçları, dört yönde giriş. Herkes ortada doğar ve
+  karşısındaki havada duran tabelada temel komutları görür.
+
+  - Zemine gömülü deniz fenerleri sayesinde meydanda canavar doğmaz.
+  - Meydan ve çevresi (17 blok) korumalıdır: yöneticiler dışında kimse kıramaz, koyamaz.
+  - /spawn herkesi meydana getirir. Yeni gelenler burada doğar ve taş alet kiti alır.
+  - Oyuncular /tpr ile 300-3000 blok uzağa ışınlanıp kendi yerlerini kurar.
+
+  Meydanda üç NPC durur (tıklanır):
+    Rehber (köylü, tabelanın arkasında)  Temel komutları anlatır.
+    Kaynak Dünyası (demir golem, doğu)   Madencilik ve odun için ayrı bir dünyaya ışınlar.
+                                          Envanter ana dünyayla aynı: topladığını getirirsin.
+                                          Her ayın 1'inde gece restartında yeni bir haritayla
+                                          sıfırlanır; oraya yapı yapma, arsa kurma.
+    Yaratıcı Dünya (allay, batı)          Düz, creative, hep öğlen, canavarsız inşa dünyası.
+                                          Envanteri AYRIDIR: oradan normal dünyaya eşya geçmez.
+  Her dünyadan /spawn ile meydana dönülür.
+
+  Meydanı süslemek istersen yönetici olarak düzenleyebilirsin (WorldEdit de var).
+  Bahçe ağaçları bazı arazilerde oluşmayabilir; kurulum bunu "küçük adım atlandı" diye yazar.
+  Önceden kurulmuş bir dünyada kurulum meydanı inşa etmeden önce sorar (oradaki yapılar silinir).
+
+
+5) ARKADAŞLARIN NASIL GİRER
+---------------------------
+  1. TLauncher'da istedikleri sürümü seçebilirler: ViaVersion ve ViaBackwards
+     sayesinde çoğu yeni ve eski sürüm çalışır. Sorun çıkarsa SURUM.txt'teki sürümü seçsinler.
+  2. Çok Oyunculu > Sunucu Ekle > playit.gg'nin verdiği adresi yazsınlar.
+  3. İlk girişte şifre belirlesinler:   /register şifre şifre
+     Sonraki girişlerde:                /login şifre
+  4. Skinlerinin görünmesi için:         /skin PremiumHesapIsmi   (ör. /skin Notch)
+
+  ÖNEMLİ: Sen de ilk girişte HEMEN /register yap. Yöneticisin, adın korunmalı.
+  AuthMe eklentisini silme! O olmadan herkes senin adınla girebilir.
+
+
+6) OYUNCU KOMUTLARI
+-------------------
+  Ev ve ışınlanma:
+    /sethome [ad]       Ev noktası kaydet (3 eve kadar)   /home [ad]   Eve ışınlan
+    /tpa isim           Birine ışınlanma isteği             /tpaccept    İsteği kabul et
+    /tpahere isim       Birini yanına çağır                 /tpdeny      İsteği reddet
+    /tpr                Rastgele uzak bir yere ışınlan      /spawn       Spawn meydanına dön
+    /back               Öldüğün veya ışınlandığın yere dön  /warp [ad]   Warp noktasına git
+  Sohbet:
+    /msg isim mesaj     Özel mesaj                          /r mesaj     Son mesaja cevap
+    /mail send isim mesaj   Çevrimdışı oyuncuya mesaj       /ignore isim
+  Ödüller:
+    /kit gunluk         24 saatte bir: ekmek, et, demir, deneyim şişesi, 50 para
+    /kit haftalik       7 günde bir: elmas, altın elma, zümrüt, deneyim şişesi, 250 para
+  Skor tablosu:
+    /skor               Sağdaki tabloyu gizle / göster
+  Sesli sohbet (bkz. 10):
+    V tuşu              Sesli sohbet menüsü (mod kuruluysa)
+  Para (herkes 100 ile başlar):
+    /bal                Paran                               /pay isim miktar   Para gönder
+    /baltop             En zenginler                        /sell hand   Elindekini sat
+    /worth              Elindeki eşyanın değeri
+  Market (QuickShop):
+    Satacağın eşyayı eline al, bir sandığa sol tıkla (vur), sohbete fiyatı yaz.
+    Market sandığına eşyaları koy. Alış marketi için:  /qs buy   satış için:  /qs sell
+  Arsa koruma (GriefPrevention):
+    Altın kürekle arsanın iki karşı köşesine sağ tıkla -> arsa oluşur.
+    Çubukla (stick) sağ tıkla -> arsa bilgisi.  Oynadıkça arsa hakkın (blok sayısı) artar.
+    /trust isim         Arsanda her şeyi yapabilsin         /untrust isim
+    /containertrust isim  Sadece sandıkları açabilsin       /claimslist  Arsaların
+    /abandonclaim       Üstünde durduğun arsayı sil
+  Yetenekler (AuraSkills):
+    /skills             Yetenek menüsü (kazma, odunculuk, savaş, tarım...)
+    Kazdıkça, kestikçe, savaştıkça ilgili yetenek seviye atlar ve bonuslar açılır.
+  Mezar (GravesX):
+    Ölünce eşyaların öldüğün yerde bir mezara konur. Mezara sağ tıklayıp geri al.
+    Mezar bir süre sonra kaybolur; acele et.
+  Toplu kırma (VeinMiner):
+    Eğilerek (Shift) bir ağacı balta ile veya bir maden damarını kazma ile kır: hepsi birden kırılır.
+    (Çalışmazsa eğilmeden dene; tuş ayarı sunucu\plugins içindeki VeinMiner klasöründe.)
+  Oturma (GSit):
+    /sit  Otur    /lay  Uzan    /crawl  Sürün    Merdivenlere ve basamaklara sağ tıklayınca da oturursun.
+    Spawn'daki banklar bunun için.
+  Skin:
+    /skin isim          Premium hesabın skinini al          /skin url <resim linki>
+    /skin clear         Skini kaldır
+  Hesap:
+    /changepassword eski yeni
+
+  Bir komut "yetkin yok" derse yöneticiye söyle (bkz. 7).
+
+
+7) YÖNETİCİ KOMUTLARI
+---------------------
+  Oyunda veya sunucu penceresinde (pencerede başına / koyma):
+    op isim / deop isim           Yönetici yetkisi ver / al
+    kick isim / ban isim / pardon isim
+    setspawn                      Doğma noktasını bulunduğun yer yap (oyunda)
+    setwarp ad / delwarp ad       Warp noktası ekle / sil
+    authme unregister isim        Şifresini unutan oyuncunun kaydını sil (yeniden /register yapar)
+    eco give isim miktar          Oyuncuya para ver
+    whitelist on / whitelist add isim   Sadece izin verdiklerin girsin istersen
+
+  Rütbeler (LuckPerms):
+    Kurulum iki rütbe oluşturdu: [Yönetici] (sen) ve [Oyuncu] (herkes).
+    lp user isim parent add yonetici      Birini yönetici rütbesine al (op da ver: op isim)
+    lp user isim parent remove yonetici
+    lp creategroup vip                     Yeni rütbe
+    lp group vip meta setprefix 50 "&6[VIP] &e"
+    lp user isim parent add vip
+    lp group vip permission set essentials.fly true   Rütbeye izin ver (ör. /fly)
+    lp editor                              Tüm yetkileri tarayıcıda düzenle
+
+  Yıkılan yerleri geri alma (CoreProtect):
+    /co inspect                   (oyunda) Aç/kapa. Açıkken bir bloğa tıklayınca kimin değiştirdiğini gösterir.
+    co rollback u:isim t:1d r:50  O oyuncunun son 1 günde 50 blok çevrede yaptıklarını geri al
+    co restore u:isim t:1d r:50   Geri almayı iptal et
+    co lookup u:isim t:2h         O oyuncunun son 2 saatte yaptıkları
+
+  Arsa (GriefPrevention):
+    adjustbonusclaimblocks isim 1000   Oyuncuya ekstra arsa hakkı ver
+    deleteclaim                   Üstünde durduğun arsayı sil (başkasınınki dahil)
+
+  Yapı (WorldEdit, oyunda):
+    //wand                        Seçim baltası: sol tık = 1. köşe, sağ tık = 2. köşe
+    //set stone                   Seçili alanı taşla doldur      //undo  Geri al
+    //replace dirt grass_block    Seçili alandaki toprağı çimen yap
+
+  Havada yazı (DecentHolograms, oyunda):
+    /dh create isim Merhaba!      Bulunduğun yere yazı koy       /dh delete isim
+    /dh lines add isim 1 &eİkinci satır
+
+  Hile koruması (GrimAC):
+    grim alerts                   Hile uyarılarını aç/kapa
+
+  Kasma analizi (spark):
+    spark tps                     Sunucu hızı (20 = mükemmel)
+    spark health                  Bellek, işlemci ve hız özeti
+    spark profiler start --timeout 300   5 dakika ölçer, sonunda bir link verir
+
+
+8) WEB HARİTASI (BlueMap) VE İSTATİSTİK SİTESİ (Plan)
+-----------------------------------------------------
+  Sunucu açıkken bu bilgisayarda tarayıcıdan:
+    Harita:      http://localhost:8100   (ilk çizim bir süre sürer; harita gezdikçe büyür)
+    İstatistik:  http://localhost:8804   (kim ne kadar oynadı, sunucu hızı, oyuncu sayısı)
+
+  İstatistik sitesi ilk açılışta giriş ister:
+    1. Sitede "Register" ile bir kullanıcı adı ve şifre belirle.
+    2. Site sana bir kod verir; oyunda  /plan register --code KOD  yaz.
+    3. Artık o kullanıcıyla giriş yapabilirsin.
+
+  Arkadaşların da görsün istersen playit.gg'de bir tünel daha ekle:
+    Tunnels > Add Tunnel > "TCP" > Local Address 127.0.0.1, Port 8100 (harita) veya 8804 (istatistik)
+  Verilen adresi tarayıcıda http:// ile açarlar, örneğin:  http://ornek.gl.at.ply.gg:12345
+
+
+9) DISCORD BAĞLANTISI (isteğe bağlı)
+-------------------------------------
+Oyun sohbeti Discord kanalına, Discord kanalındaki mesajlar oyuna gelir.
+
+  1. https://discord.com/developers/applications > New Application > bir ad ver.
+  2. Soldan "Bot" > "Reset Token" > çıkan token'ı kopyala (kimseyle paylaşma!).
+     Aynı sayfada "MESSAGE CONTENT INTENT" ve "SERVER MEMBERS INTENT" seçeneklerini aç > Save.
+  3. Soldan "OAuth2" > "URL Generator": Scopes'ta "bot" ve "applications.commands" seç;
+     Bot Permissions'ta "View Channels", "Send Messages", "Read Message History",
+     "Embed Links", "Attach Files", "Manage Webhooks" seç. Alttaki linki aç ve botu sunucuna ekle.
+  4. Discord'da Ayarlar > Gelişmiş > "Geliştirici Modu"nu aç. Kanala sağ tık > "Kanal ID'sini Kopyala".
+  5. KUR.bat'ı çalıştır, Discord sorusuna E de; token'ı ve kanal ID'sini yapıştır
+     (konsolda sağ tık yapıştırır; token yazarken görünmez, bu normal).
+
+
+10) SESLİ SOHBET (Simple Voice Chat)
+------------------------------------
+Yakınındaki oyuncularla mikrofonla konuşursun; uzaklaştıkça ses azalır.
+
+  Sunucu tarafı (bir kez):
+    1. playit.gg sitesinde: Tunnels > Add Tunnel > tür: "MC: Simple Voice Chat"
+       (yoksa "UDP"), Local Address 127.0.0.1, Port 24454 > Add.
+    2. Verilen adresi kopyala (ör. abc.gl.at.ply.gg:12345).
+    3. KUR.bat'ı çalıştır; sesli sohbet adresini sorunca yapıştır.
+       (Elle: sunucu\plugins\voicechat\voicechat-server.properties içinde voice_host=ADRES)
+
+  Her oyuncu (bir kez):
+    1. TLauncher'da sunucuyla aynı sürümün "Fabric" kurulumunu seç (ör. "Fabric 26.1.2").
+    2. modrinth.com/mod/simple-voice-chat ve modrinth.com/mod/fabric-api sayfalarından
+       o sürüme uygun dosyaları indir.
+    3. İki dosyayı %appdata%\.minecraft\mods klasörüne koy, oyunu Fabric ile aç.
+    4. Sunucuda V tuşuyla menüyü aç; mikrofonunu seç.
+  Modu kurmayanlar sunucuya yine girer, sadece sesli sohbeti duyamaz.
+
+
+11) YEDEKLER, DUYURULAR VE OTOMATİK İŞLER
+-----------------------------------------
+  yedekler\yedek_TARİH.zip      Her BASLAT.bat açılışında ve YEDEKLE.bat ile. En yeni 10 tanesi kalır.
+  yedekler\saatlik_TARİH.zip    Sunucu açıkken her saat (xx:30), yalnızca oyuncu varsa veya
+                                dünya değiştiyse. En yeni 12 tanesi kalır.
+
+  Gece restart: Her gece 05:00'te, oyuncu varsa 5 dakika önceden uyarıp sunucuyu yeniden
+  başlatır (bu sırada bir yedek de alınır). Ayın 1'inde önce kaynak dünyası sıfırlanır.
+
+  Duyurular: Oyuncu varken 15 dakikada bir DUYURULAR.txt'deki sıradaki satır sohbete
+  "[İpucu]" olarak yazılır. Dosyayı değiştirmek için sunucuyu kapatmana gerek yok.
+
+  Bu işleri BASLAT.bat ile birlikte açılan gizli bir yardımcı yapar (pencere açmaz, oyunu
+  alta atmaz). Sunucu 5 dakika kapalı kalınca kendisi de kapanır. Kurulumda "gece restart ve
+  saatlik yedek" sorusuna hayır dediysen yalnızca duyuruları yapar.
+
+  Yedeklere girmeyenler: CoreProtect blok kayıtları (çok büyür) ve BlueMap'in çizdiği
+  harita (yeniden çizilir). Saatlik yedeklerde ayrıca QuickShop market veritabanı yoktur
+  (sunucu açıkken kilitlidir); o, yedek_ dosyalarında vardır.
+
+  Restart saatini değiştirmek: araclar\ortak.ps1 içinde  $RestartSaati = '05:00'  satırı.
+  Gece restart ve saatlik yedeği kapatmak/açmak: araclar\durum.json içinde "Gorevler"
+  değerini "hayir" veya "evet" yap. Duyuruları kapatmak: DUYURULAR.txt'yi boşalt.
+
+  Yedekten geri dönmek:
+    1. Sunucuyu kapat (stop).
+    2. sunucu klasöründeki world, world_nether ve world_the_end klasörlerini sil.
+    3. Yedek ZIP'ini aç; içindeki "sunucu" klasörünün içeriğini mevcut sunucu
+       klasörüne kopyala ("Değiştir" de).
+    4. BASLAT.bat ile aç.
+
+
+12) AYARLARI DEĞİŞTİRMEK
+------------------------
+  Bellek (RAM):  AYARLAR.cmd dosyasını Not Defteri ile aç, RAM=4G satırını değiştir.
+  Oyun ayarları: sunucu\server.properties dosyasını Not Defteri ile aç:
+                   difficulty=normal    (peaceful / easy / normal / hard)
+                   gamemode=survival    (survival / creative / adventure)
+                   max-players=20
+                   spawn-protection=17  (spawn çevresindeki korumalı alanın yarıçapı)
+                   motd=...             (sunucu listesinde görünen yazı)
+  Değişiklikten sonra sunucuyu kapatıp yeniden aç.
+
+  Oyun kuralları (sunucu penceresinde):
+    gamerule players_sleeping_percentage 50   Gecenin geçmesi için uyuması gereken oyuncu yüzdesi
+    gamerule keep_inventory true              Ölünce eşyalar kaybolmasın (mezar yerine)
+    worldborder set 20000                     Dünya sınırı (kenar uzunluğu, blok)
+
+  Giriş mesajı ve kurallar: sunucu\plugins\Essentials\motd.txt ve rules.txt (Not Defteri ile).
+  Başlangıç kiti: sunucu\plugins\Essentials\kits.yml içindeki "tools" kiti.
+
+  server.properties içindeki rcon.password'ü kimseyle paylaşma. Bu şifre kurulum, gece
+  restart ve saatlik yedek içindir; tünel yalnızca oyun portunu dışarı açar.
+
+  Dünya ön oluşturma (Chunky): chunky progress (durum), chunky pause / chunky continue.
+  Daha geniş alan için: chunky radius 4000 ve sonra chunky start.
+
+
+13) GÜNCELLEME
+--------------
+  KUR.bat'ı tekrar çalıştır. Yeni eklenti sürümleri ve listeye eklenen yeni eklentiler kurulur.
+  Minecraft'ın yeni sürümü daha çok eklentiyle uyumluysa önce sorar; dünya geri dönülmez
+  şekilde yükseltilir (önce yedek alınır). Klasörü başka yere taşıdıysan da KUR.bat'ı bir
+  kez çalıştır (görevlerin ve kısayolların yolu güncellenir).
+
+  Yeni Minecraft sürümüyle uyumsuz bir eklenti sunucu\plugins\devre-disi klasörüne
+  taşınır; uyumlu sürümü çıkınca KUR.bat onu geri kurar.
+
+
+14) WINDOWS AÇILINCA BAŞLAMA
+----------------------------
+  Kurulumda "evet" dediysen sen Windows'a giriş yapınca sunucu ve tünel kendiliğinden açılır.
+  Kapatmak için: Win+R > shell:startup yaz > Enter > "Minecraft Sunucusu" ve
+  "Minecraft Tuneli" kısayollarını sil.
+
+
+15) SORUN GİDERME
+-----------------
+  "FAILED TO BIND TO PORT":
+      Sunucu zaten açık (başka bir pencerede). Fazla pencereyi kapat.
+  Arkadaşım bağlanamıyor:
+      - TUNEL.bat penceresi açık mı?
+      - playit.gg sitesindeki tünel 127.0.0.1:25565'e mi bakıyor?
+      - "Outdated client/server" hatası: SURUM.txt'teki sürümü seçsin.
+  Bir oyuncu bir komutu kullanamıyor ("You do not have permission"):
+      lp group default permission set <yetki> true   (yetki adları için: lp editor)
+  Kurulum bir adımı "tamamlanamadı" dedi:
+      KUR.bat'ı tekrar çalıştır; o adım baştan denenir. Yine olmazsa ekran görüntüsünü gönder.
+  Bir ayar "ayar dosyası bulunamadı, atlandı" dedi:
+      O eklentinin yeni sürümü ayarı başka bir yerde tutuyor. Eklenti çalışır, sadece o
+      ayarı (ör. Türkçe dil) eklentinin kendi klasöründen elle yapman gerekir.
+  Hile koruması (GrimAC) arkadaşımı haksız yere attı:
+      Kasma olunca nadiren olur. Çok sık olursa: sunucu\plugins\GrimAC klasöründeki ayarlardan
+      cezaları azaltabilir veya GrimAC jar'ını plugins\devre-disi klasörüne taşıyabilirsin.
+  Discord bağlanmıyor:
+      Token doğru mu, botta "MESSAGE CONTENT INTENT" açık mı? KUR.bat'ı tekrar çalıştırınca
+      Discord ayarı yeniden sorulur.
+  Harita boş:
+      İlk çizim zaman alır. Sunucu penceresine: bluemap reload
+  Kasma / gecikme:
+      spark health ile bak. AYARLAR.cmd'de RAM'i artırabilirsin (bilgisayardaki belleğin
+      yarısını geçme) veya server.properties'te view-distance değerini 8'e düşür.
+      Dünya ön oluşturma sürerken kasma normaldir (chunky progress ile bak).
+  Gece restart / saatlik yedek / duyurular çalışmadı:
+      araclar\gorevler.log dosyasına bak. "Yardımcı başladı" satırı yoksa sunucuyu BASLAT.bat
+      ile açtığından emin ol.
+  NPC'ler veya dünya kapıları yok:
+      Kurulum spawn koordinatını öğrenemediyse NPC'ler atlanır (ekranda yazar). Oyunda
+      kendin ekleyebilirsin: /npc create rehber (bulunduğun yere), sonra /npc help.
+  Kaynak dünyası sıfırlanmadı:
+      gorevler.log'a bak; elle:  mv regen kaynak --seed  ve sonra  mv confirm
+  Sesli sohbette kimse duyulmuyor:
+      voice_host adresi playit'teki "Simple Voice Chat" tünelinin adresi mi? Oyuncuların
+      Fabric ve Simple Voice Chat modu kurulu mu? TUNEL.bat açık mı?
+  Kurulum hata verdi:
+      Pencerenin ekran görüntüsünü Claude'a gönder, birlikte çözeriz.

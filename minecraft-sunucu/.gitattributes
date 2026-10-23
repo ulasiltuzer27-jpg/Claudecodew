@@ -1,0 +1,6 @@
+# Windows dosyaları olduğu gibi saklansın: .bat CRLF ister, Windows PowerShell 5.1
+# Türkçe karakterler için UTF-8 BOM ister. Git satır sonlarını değiştirmesin.
+*.bat -text
+*.cmd -text
+*.ps1 -text
+*.txt -text
