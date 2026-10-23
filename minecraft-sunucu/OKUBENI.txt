@@ -2,7 +2,7 @@
 =======================================
 
 Paper sunucusu (Java Edition), TLauncher desteği, otomatik kurulan koyu temalı
-spawn meydanı, ek dünyalar ve 27 eklenti:
+spawn meydanı, ek dünyalar ve 29 eklenti:
 
   Temel
     AuthMe            Şifreyle giriş (/register, /login). TLauncher açıkken isimleri korur.
@@ -23,6 +23,8 @@ spawn meydanı, ek dünyalar ve 27 eklenti:
     GSit              Oturma ve uzanma (/sit, /lay, merdivenlere sağ tıkla)
     SkinsRestorer     TLauncher oyuncularının skinleri herkese görünür (/skin)
     QuickShop-Hikari  Sandık marketleri
+    CrazyAuctions     Açık artırma pazarı (/ah)
+    Towny             Kasabalar ve uluslar (/town, /nation)
     VaultUnlocked     Para sistemini marketlere ve rütbeleri sohbete bağlar
   Dünyalar ve topluluk
     Multiverse        Kaynak Dünyası (her ay sıfırlanır) ve Yaratıcı Dünya (creative, ayrı envanter)
@@ -166,6 +168,21 @@ TUNEL.bat penceresi açık kaldığı sürece tünel çalışır.
     /bal                Paran                               /pay isim miktar   Para gönder
     /baltop             En zenginler                        /sell hand   Elindekini sat
     /worth              Elindeki eşyanın değeri
+  Kasaba (Towny):
+    /town new isim      Kasaba kur (100 para). Bulunduğun parça (16x16) kasabanın ilk arazisi olur.
+    /town add isim      Arkadaşını kasabaya davet et       /town join isim  Davete katıl
+    /town claim         Durduğun parçayı kasabaya kat (kasaba bankasından ücret alınır)
+    /town deposit 100   Kasaba bankasına para yatır         /town spawn  Kasabaya ışınlan
+    /town set spawn     Kasabanın ışınlanma noktası          /town        Kasaba bilgisi
+    /town toggle pvp    Kasabada PvP aç/kapa                 /town leave  Kasabadan ayrıl
+    /nation new isim    Kasabanla ulus kur (500 para)       /towny map   Çevredeki araziler
+    Kasaba arazisinde yalnızca kasaba üyeleri yapı yapabilir. Günlük bakım ücreti yok.
+    Not: Kasaba alanının içinde altın kürekle ayrıca arsa kurma; ikisi birbirini görmez.
+         Kaynak dünyasında kasaba kurma, her ay sıfırlanır.
+  Açık artırma pazarı (CrazyAuctions):
+    /ah                 Pazarı aç, satılanlara göz at, tıklayıp satın al
+    /ah sell fiyat      Elindeki eşyayı o fiyata sat       /ah bid fiyat  Açık artırmaya koy
+    /ah expired         Satılmayan, geri alınacak eşyaların
   Market (QuickShop):
     Satacağın eşyayı eline al, bir sandığa sol tıkla (vur), sohbete fiyatı yaz.
     Market sandığına eşyaları koy. Alış marketi için:  /qs buy   satış için:  /qs sell

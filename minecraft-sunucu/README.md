@@ -6,13 +6,15 @@ korur ve modem ayarı gerektirmeden [playit.gg](https://playit.gg) tüneliyle in
 
 ## Neler var?
 
-- **Kurulum:** Java, Paper ve 27 eklentiyi indirir ve doğrular (SHA-256/512). Eklentilerin
+- **Kurulum:** Java, Paper ve 29 eklentiyi indirir ve doğrular (SHA-256/512). Eklentilerin
   hepsiyle en uyumlu Minecraft sürümünü kendisi seçer.
 - **Spawn meydanı:** Koyu temalı, 31×31. Canavar doğmaz ve çevresi korumalıdır. Rehber NPC'si
   ve dünya kapıları vardır.
 - **Ek dünyalar:** Her ay sıfırlanan Kaynak Dünyası ve ayrı envanterli Yaratıcı Dünya.
 - **Rütbeler:** `[Yönetici]` / `[Oyuncu]`. Yeni gelen oyuncular temel komutları kullanabilir.
-- **Ödül ve ekonomi:** Günlük ve haftalık ödül kitleri, para, sandık marketleri ve arsa koruma.
+- **Ödül ve ekonomi:** Günlük ve haftalık ödül kitleri, para, sandık marketleri, açık artırma
+  pazarı (`/ah`) ve arsa koruma.
+- **Kasabalar:** Towny ile arkadaşlarınla kasaba ve ulus kurma (`/town new`).
 - **Koruma:** Blok kaydı ve geri alma, hile ve X-ray koruması.
 - **Görünüm:** Türkçe skor tablosu, renkli sohbet ve oyuncu listesi, 15 dakikada bir Türkçe ipuçları.
 - **Web sayfaları:** 3D web haritası (BlueMap) ve istatistik sitesi (Plan).

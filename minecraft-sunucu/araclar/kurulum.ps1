@@ -72,6 +72,8 @@ $Eklentiler = @(
     (Yeni-Eklenti 'PlaceholderAPI'   @('placeholderapi', 'lKEzGugV') 'skor tablosunda para gösterimi' 'https://modrinth.com/plugin/placeholderapi' -HerSurum)
     (Yeni-Eklenti 'Plan'             'plan'             'oyuncu istatistikleri sitesi'              'https://modrinth.com/plugin/plan')
     (Yeni-Eklenti 'SimpleVoiceChat'  'simple-voice-chat' 'yakındakilerle sesli sohbet'             'https://modrinth.com/plugin/simple-voice-chat')
+    (Yeni-Eklenti 'Towny'            'towny'            'kasabalar ve uluslar (/town)'              'https://modrinth.com/plugin/towny')
+    (Yeni-Eklenti 'CrazyAuctions'    'crazyauctions'    'açık artırma pazarı (/ah)'                 'https://modrinth.com/plugin/crazyauctions')
     (Yeni-Eklenti 'DiscordSRV'       'discordsrv'       'Discord sohbet köprüsü'                    'https://modrinth.com/plugin/discordsrv')
 )
 
@@ -89,7 +91,18 @@ $VarsayilanYetkiler = @(
     'skinsrestorer.player', 'skinsrestorer.command', 'skinsrestorer.command.set', 'skinsrestorer.command.set.url', 'skinsrestorer.command.clear',
     'griefprevention.createclaims',
     'tab.scoreboard.toggle',
-    'voicechat.listen', 'voicechat.speak', 'voicechat.groups'
+    'voicechat.listen', 'voicechat.speak', 'voicechat.groups',
+    'crazyauctions.access', 'crazyauctions.view', 'crazyauctions.sell', 'crazyauctions.bid'
+)
+
+# Towny ayarları (plugins/Towny/settings/config.yml): kasaba kurmak başlangıç parasıyla mümkün olsun ve
+# oyuncular birkaç gün girmeyince günlük bakım ücreti yüzünden kasabaları silinmesin.
+$TownyFiyatlari = [ordered]@{ price_new_town = '100.0'; price_new_nation = '500.0'; price_town_upkeep = '0.0'; price_nation_upkeep = '0.0' }
+
+# Yeni özelliklerle gelen ipuçları; DUYURULAR.txt'de yoksa sona eklenir.
+$EkDuyurular = @(
+    '&7Arkadaşlarınla kasaba kur: &e/town new isim &7(100 para), davet: &e/town add isim',
+    '&7Açık artırma pazarı: &e/ah &7ile göz at, elindekini satmak için &e/ah sell fiyat'
 )
 
 # EssentialsX kits.yml'ye eklenen ödül kitleri: ad, bekleme (saniye), içerik ("$" para verir).
@@ -208,7 +221,19 @@ $Adimlar = @(
         param($dosya) Kitleri-Ekle $dosya
     })
     (Yeni-Adim 'tab-skor' 'Skor tablosu' 'TAB' { Eklenti-Dosyasi 'TAB' 'config.yml' } {
-        param($dosya, $s, $d) Yaml-Bolum-Degistir $dosya 'scoreboard' (Skor-Tablosu $s.SunucuAdi (Eklenti-Kurulu-Mu $d 'PlaceholderAPI')) 'TAB: Türkçe skor tablosu (/skor ile gizlenir)'
+        param($dosya, $s, $d)
+        $papi = Eklenti-Kurulu-Mu $d 'PlaceholderAPI'
+        $kasaba = $papi -and (Eklenti-Kurulu-Mu $d 'Towny')
+        Yaml-Bolum-Degistir $dosya 'scoreboard' (Skor-Tablosu $s.SunucuAdi $papi $kasaba) 'TAB: Türkçe skor tablosu (/skor ile gizlenir)'
+    })
+    (Yeni-Adim 'towny-ayar' 'Towny fiyatları' 'Towny' { Eklenti-Dosyasi 'Towny' (Join-Path 'settings' 'config.yml') } {
+        param($dosya)
+        foreach ($anahtar in $TownyFiyatlari.Keys) {
+            Yaml-Degistir $dosya "^([ \t]*)$($anahtar):[^\r\n]*" "`${1}$($anahtar): $($TownyFiyatlari[$anahtar])" "Towny: $anahtar = $($TownyFiyatlari[$anahtar])"
+        }
+    })
+    (Yeni-Adim 'duyurular-v2' 'Kasaba ve pazar ipuçları' $null { if (Test-Path -LiteralPath $DuyuruDosyasi) { $DuyuruDosyasi } } {
+        param($dosya) Duyurulara-Ekle $dosya
     })
     (Yeni-Adim 'sesli-sohbet' 'Sesli sohbet adresi' 'SimpleVoiceChat' { Eklenti-Dosyasi 'voicechat' 'voicechat-server.properties' } {
         param($dosya, $s) Yaml-Degistir $dosya '^voice_host=[^\r\n]*' "voice_host=$($s.SesHost)" "Sesli sohbet: oyuncular $($s.SesHost) adresine bağlanacak"
@@ -223,7 +248,7 @@ $Adimlar = @(
         'lp group default meta setprefix 1 "&8[Oyuncu] &7"'
         if ($s.OpIsmi) { "lp user $($s.OpIsmi) parent add yonetici" }
     })
-    (Yeni-Adim 'yetkiler-v3' 'Oyuncu yetkileri (/home, /tpa, /tpr, /kit, /sell, /skin...)' 'LuckPerms' -komutlar {
+    (Yeni-Adim 'yetkiler-v4' 'Oyuncu yetkileri (/home, /tpa, /tpr, /kit, /ah, /sell, /skin...)' 'LuckPerms' -komutlar {
         $VarsayilanYetkiler | ForEach-Object { "lp group default permission set $_ true" }
     })
     (Yeni-Adim 'oyun-kurallari' "Uyku %50, dünya sınırı $DunyaSiniri, /tpr 300-3000 blok" $null -komutlar {
@@ -342,7 +367,18 @@ function Kitleri-Ekle([string]$dosya) {
     Tamam "EssentialsX: ödül kitleri eklendi (/kit $(@($eksikler | ForEach-Object { $_[0] }) -join ', /kit '))"
 }
 
-function Skor-Tablosu([string]$sunucuAdi, [bool]$paraVar) {
+# DUYURULAR.txt kullanıcının dosyası: yalnızca eksik ipuçları sona eklenir, diğer satırlara dokunulmaz.
+function Duyurulara-Ekle([string]$dosya) {
+    $metin = [IO.File]::ReadAllText($dosya)
+    $eksik = @($EkDuyurular | Where-Object { -not $metin.Contains($_) })
+    if ($eksik.Count -eq 0) { return }
+    $nl = if ($metin.Contains("`r`n")) { "`r`n" } else { "`n" }
+    if ($metin -and -not $metin.EndsWith("`n")) { $metin += $nl }
+    [IO.File]::WriteAllText($dosya, $metin + (($eksik -join $nl) + $nl), (New-Object System.Text.UTF8Encoding $true))
+    Tamam "DUYURULAR.txt: $($eksik.Count) yeni ipucu eklendi (kasaba, pazar)"
+}
+
+function Skor-Tablosu([string]$sunucuAdi, [bool]$paraVar, [bool]$kasabaVar = $false) {
     $baslik = $sunucuAdi.Replace('\', '\\').Replace('"', '\"')
     $satirlar = @(
         'scoreboard:',
@@ -360,6 +396,7 @@ function Skor-Tablosu([string]$sunucuAdi, [bool]$paraVar) {
         '      - "&7Rütbe: %luckperms-prefix%"'
     )
     if ($paraVar) { $satirlar += '      - "&7Para: &e%vault_eco_balance_formatted%"' }
+    if ($kasabaVar) { $satirlar += '      - "&7Kasaba: &f%townyadvanced_town_unformatted%"' }
     $satirlar += @(
         '      - ""',
         '      - "&7Çevrimiçi: &a%online%"',
@@ -1139,7 +1176,7 @@ function Duyurular-Yaz {
         '&7Eğilip ağaç kesersen bütün ağaç birden düşer (VeinMiner).',
         '&7Skor tablosunu gizlemek veya açmak için: &e/skor',
         '&7Kuralları unutma: &e/rules   &7Yöneticiye yaz: &e/helpop mesaj'
-    )
+    ) + $EkDuyurular
     [IO.File]::WriteAllText($DuyuruDosyasi, (($satirlar -join "`r`n") + "`r`n"), (New-Object System.Text.UTF8Encoding $true))
 }
 
@@ -1272,6 +1309,7 @@ function Ana {
     if ((& $planda 'FancyNpcs') -and $durum.Adimlar -notcontains 'npc-rehber') { Bilgi '* Spawn''a rehber NPC ve dünyalara götüren kapı bekçileri' }
     if ((& $planda 'EssentialsX') -and $durum.Adimlar -notcontains 'odul-kitleri') { Bilgi '* Ödül kitleri: /kit gunluk (24 saatte bir) ve /kit haftalik' }
     if ((& $planda 'TAB') -and $durum.Adimlar -notcontains 'tab-skor') { Bilgi '* Sağda Türkçe skor tablosu (/skor ile gizlenir)' }
+    if ((& $planda 'Towny') -and $durum.Adimlar -notcontains 'towny-ayar') { Bilgi '* Kasabalar: kurmak 100 para, günlük bakım ücreti yok (oyuncular girmese de kasaba silinmez)' }
     if (-not (Test-Path -LiteralPath $DuyuruDosyasi)) { Bilgi '* 15 dakikada bir Türkçe ipucu duyuruları (DUYURULAR.txt''den değiştirilebilir)' }
     $eskiGorevler = @(Eski-Gorevler)
     if ($eskiGorevler.Count -gt 0) {
